@@ -5,7 +5,7 @@ import { AppContext, AppProvider } from "./context/AppContext"
 
 
 const AppContent = () => {
-  const { data, updateData } = useContext(AppContext)
+  const { data } = useContext(AppContext)
   return (
     <View style={{
       flex: 1,
