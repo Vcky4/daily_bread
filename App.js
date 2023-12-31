@@ -1,6 +1,6 @@
 import React from "react"
 import { FlatList, Text, View } from "react-native"
-import BouncyCheckbox from "react-native-bouncy-checkbox"
+import ScheduleItem from "./src/ScheduleItem"
 
 export default App = () => {
   const data = [
@@ -45,62 +45,7 @@ export default App = () => {
 
       <FlatList
         data={data}
-        renderItem={({ item, index }) => (
-          <View style={{
-            width: '100%',
-          }}>
-            <Text style={{
-              fontSize: 18,
-              fontWeight: '800',
-              marginTop: 20,
-              alignSelf: 'center',
-              display: data[index - 1]?.week === item.week ? 'none' : 'flex',
-            }}>Week {item.week}</Text>
-            <View style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              width: '100%',
-              alignItems: 'center',
-            }}>
-              <Text style={{
-                fontSize: 16,
-                fontWeight: '500',
-                marginTop: 5,
-              }}>Day {item.day}</Text>
-              <Text style={{
-                fontSize: 16,
-                fontWeight: '500',
-                marginTop: 10,
-              }}>{item.scriptues}</Text>
-              <View style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-                <BouncyCheckbox
-                  size={20}
-                  fillColor="blue"
-                  unfillColor="#FFFFFF"
-                  iconStyle={{ borderColor: "blue" }}
-                  onPress={(isChecked) => { }}
-                />
-                <BouncyCheckbox
-                  size={20}
-                  fillColor="blue"
-                  unfillColor="#FFFFFF"
-                  iconStyle={{ borderColor: "blue" }}
-                  onPress={(isChecked) => { }}
-                />
-                <BouncyCheckbox
-                  size={20}
-                  fillColor="blue"
-                  unfillColor="#FFFFFF"
-                  iconStyle={{ borderColor: "blue" }}
-                  onPress={(isChecked) => { }}
-                />
-              </View>
-            </View>
-          </View>
-        )}
+        renderItem={({ item, index }) => <ScheduleItem data={data} item={item} index={index} />}
         keyExtractor={(item) => `${item.week}-${item.day}`}
       />
     </View>
