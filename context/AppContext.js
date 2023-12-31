@@ -5,20 +5,19 @@ import chapters from "../src/data";
 export const AppContext = createContext(null)
 
 export const AppProvider = ({ children }) => {
-    const [achievements, setAchivements] = useState([])
     const [data, setData] = useState([])
 
-    const updateAchivements = (achievement) => {
-        setAchivements([...achievements, achievement])
-        AsyncStorage.setItem('achievements', JSON.stringify([...achievements, achievement]))
+    const updateData = (index, read) => {
+        const newData = [...data]
+        if (newData[index].read.includes(read)) {
+            newData[index].read = [...newData[index].read.filter((item) => item !== read)]
+        } else {
+            newData[index].read = [...newData[index].read, read]
+        }
+        setData(newData)
+        AsyncStorage.setItem('data', JSON.stringify(newData))
     }
-
     useEffect(() => {
-        AsyncStorage.getItem('achievements').then((data) => {
-            if (data) {
-                setAchivements(JSON.parse(data))
-            }
-        })
         AsyncStorage.getItem('data').then((data) => {
             if (data) {
                 setData(JSON.parse(data))
@@ -29,7 +28,7 @@ export const AppProvider = ({ children }) => {
     }, [])
 
     return (
-        <AppContext.Provider value={{ achievements, updateAchivements }}>
+        <AppContext.Provider value={{ data, updateData }}>
             {children}
         </AppContext.Provider>
     )

@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Text, View } from "react-native"
 import BouncyCheckbox from "react-native-bouncy-checkbox"
+import { AppContext } from "../context/AppContext";
 export default ScheduleItem = ({ data, item, index }) => {
+    const { updateData } = useContext(AppContext)
+    const [isChecked, setIsChecked] = useState(0)
+    useEffect(() => {
+        if (isChecked > 0) {
+            updateData(index, isChecked)
+        }
+    }, [isChecked])
     return (
         <View style={{
             width: '100%',
@@ -37,22 +45,32 @@ export default ScheduleItem = ({ data, item, index }) => {
                         size={20}
                         fillColor="blue"
                         unfillColor="#FFFFFF"
+                        isChecked={item?.read?.includes(1)}
                         iconStyle={{ borderColor: "blue" }}
-                        onPress={(isChecked) => { }}
+                        onPress={(isChecked) => {
+                            setIsChecked(1)
+
+                        }}
                     />
                     <BouncyCheckbox
                         size={20}
                         fillColor="blue"
                         unfillColor="#FFFFFF"
+                        isChecked={item.read.includes(2)}
                         iconStyle={{ borderColor: "blue" }}
-                        onPress={(isChecked) => { }}
+                        onPress={(isChecked) => {
+                            setIsChecked(2)
+                        }}
                     />
                     <BouncyCheckbox
                         size={20}
                         fillColor="blue"
                         unfillColor="#FFFFFF"
+                        isChecked={item.read.includes(3)}
                         iconStyle={{ borderColor: "blue" }}
-                        onPress={(isChecked) => { }}
+                        onPress={(isChecked) => {
+                            setIsChecked(3)
+                        }}
                     />
                 </View>
             </View>
